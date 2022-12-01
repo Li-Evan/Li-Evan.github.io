@@ -4,6 +4,38 @@
   
   
   <entry>
+    <title>Linux进程笔记</title>
+    <link href="/2022/12/02/Linux%E8%BF%9B%E7%A8%8B%E7%AC%94%E8%AE%B0-1/"/>
+    <url>/2022/12/02/Linux%E8%BF%9B%E7%A8%8B%E7%AC%94%E8%AE%B0-1/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Linux进程笔记</title>
+    <link href="/2022/12/02/Linux%E8%BF%9B%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+    <url>/2022/12/02/Linux%E8%BF%9B%E7%A8%8B%E7%AC%94%E8%AE%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="进程初探"><a href="#进程初探" class="headerlink" title="进程初探"></a>进程初探</h1><ul><li>系统初始进程启动步骤<ol><li>系统启动时，内核<strong>先把一些它自己的活动初始化为进程</strong></li><li><strong>运行一个叫做 init 的程<br> 序</strong>。init，依次地，<strong>再运行一系列的称为 init 脚本的 shell 脚本</strong>（位于&#x2F;etc），它们可以启动所有<br> 的系统服务。其中许多系统服务以守护（daemon）程序的形式实现，守护程序仅在后台运行，<br> 没有任何用户接口 (User Interface)。</li></ol></li><li>在进程方案中，<strong>一个程序可以发动另一个程序被表述为一个父进程可以产生一个子进程。</strong></li><li>内核维护每个进程的信息，每个进程有自己的PID（Process ID），init进程的PID总是1</li></ul><p><img src="https://secure2.wostatic.cn/static/axut6zcsFknPjzhFQfh1J4/image.png?auth_key=1669917071-e6bFPxcKqcDBxUw5dsNxgz-0-142a1566a3f3f70f4a5fa9ec273542af" alt="img"></p><h1 id="进程相关的命令"><a href="#进程相关的命令" class="headerlink" title="进程相关的命令"></a>进程相关的命令</h1><ul><li><p>ps</p><ul><li><p>option</p><ul><li><p>不带option</p><p><img src="https://secure2.wostatic.cn/static/45nWuY8FqeaX9F3qmwcoaT/image.png?auth_key=1669917071-f96h1e983cYHta2UbXYmjW-0-494a8be04bc78773be3271be28566403" alt="img"></p><ul><li>默认情况下，ps 不会显示很多进程信息，只是列出<strong>与当前终端会话相关的进程</strong>。</li><li>字段释义<ul><li>TTY 是指进程的控制终端。</li><li>TIME 字段表示进程所消耗的 CPU 时间数量。</li></ul></li></ul></li><li><p>带 -x（要是不行就 <code>ps x </code> 不要<code>ps -x</code>）</p><p><img src="https://secure2.wostatic.cn/static/ecmtkLS3S4N8khDzgQ1Ssb/image.png?auth_key=1669917071-trZjLtodXdKiPHrDhVkrbY-0-e6c1dc27050bf459c2a1cedca7496cf5" alt="img"></p><ul><li><p>可以看到我们所拥有的<strong>每个进程的信息</strong></p></li><li><p>字段释义</p><ul><li><p>TTY 一栏中出现的 “?” ，表示没有控制终端</p></li><li><p>STAT（State） 揭示了进程当前状态</p><p><img src="https://secure2.wostatic.cn/static/p9JREfb6wRkbzvZMc29PN/image.png?auth_key=1669917071-wGUPUMS2tnJ11f1G2oj1cx-0-40607285e61cbb951be0a24041a7f76c" alt="img"></p></li></ul></li></ul></li><li><p>带 -aux</p><p><img src="https://secure2.wostatic.cn/static/ktqArghyiZm2cBjxpHiQBh/image.png?auth_key=1669917071-b5ycDV8HdgodvCCF65TusD-0-36ee81ce181d7c868d92f8d3abd6e731" alt="img"></p><ul><li><p>能够显示属于<strong>每个用户的进程信息</strong></p></li><li><p>字段含义</p><p><img src="https://secure2.wostatic.cn/static/rHbXwTKXqZEqkDZVGejeUS/image.png?auth_key=1669917071-7ZUcZ2cGgghBRyPUK99iGp-0-6485204788cd0c4d9969376e1820312c" alt="img"></p></li></ul></li></ul></li></ul></li><li><p>top</p><ul><li><p>ps只是提供 ps 命令执行时刻的机器状态快照。top可以使我们看到更多动态的信息。</p></li><li><p>top命令最上面是系统概要，下面是进程列表，以 CPU 的使用率排序</p><p><img src="https://secure2.wostatic.cn/static/jrzsQ1kird3nfsL2D9x4Hg/image.png?auth_key=1669917071-8Mgqr9HRXaKSsqRgAQgaE8-0-f24da331264e3b2947fc224ce56563e7" alt="img"></p><ul><li><p>系统概要详解</p><p><img src="https://secure2.wostatic.cn/static/oNj9TVqCrw2Do5WkWTRpuZ/image.png?auth_key=1669917071-cHkg4z7MxiZh9TEqhSrwKy-0-e4296b49cddaeeeb1e209d74dce4d8e5" alt="img"></p><p><img src="https://secure2.wostatic.cn/static/4bp4dTHAW69abdba9ZmPcN/image.png?auth_key=1669917071-2DASoKdkEhj4bVvMiC4ddC-0-f240920e6724c4f02dc6f2982c997977" alt="img"></p></li></ul></li><li><p>在top界面输入h可以显示帮助，输入q可以退出top</p><p><img src="https://secure2.wostatic.cn/static/bRPBFeKuRY29FCXPCcf6gQ/image.png?auth_key=1669917071-dKqqKisjqBkDNr7opRZrim-0-2b079fa1900a0f8b18b56a9160a71cd6" alt="img"></p></li></ul></li></ul><h1 id="进程的前后台执行切换"><a href="#进程的前后台执行切换" class="headerlink" title="进程的前后台执行切换"></a>进程的前后台执行切换</h1><ul><li><p>启动时后台执行</p><ul><li><p>启动一个程序并让它立即在后台运行，在程序命令之后，加上 “&amp;” 字符</p><p><img src="https://secure2.wostatic.cn/static/6MLb2L8LRi9DLyrDCWbKUi/image.png?auth_key=1669917071-bm4zQYxJ7vwFn64RU1tFF4-0-5feda753417ece0e5b14a066de0a946f" alt="img"></p><ul><li>打印的东西叫做任务控制 (job control)。通过这条信息，shell 告诉我们，已经启动了<strong>任务号 (job number) 为 1（“［1］”），PID 为 28236 的程序</strong></li></ul></li><li><p>jobs可以查看终端启动了的任务</p><p><img src="https://secure2.wostatic.cn/static/hNaTViSHbihiTc9cggeiLT/image.png?auth_key=1669917071-cCzV9WE259LfJyXBYf8nus-0-75fd59bffd04f9eb66fe9c017788335f" alt="img"></p><ul><li>显示我们有一个任务，编号为“1”，它正在运行，并且这个任务的命令是 <code>xlogo ＆</code></li></ul></li></ul></li><li><p>切换后台程序到前台</p><ul><li><p>fg 命令之后，跟随着一个百分号和任务序号（叫做 jobspec, 如此处的%1）</p><p><img src="https://secure2.wostatic.cn/static/vSet4CFC9JqLY73vyKyzov/image.png?auth_key=1669917071-f7YSSARvaboKVEhxuzL1VD-0-7856168f8a4be3ea5e61d10123ab603e" alt="img"></p></li></ul></li><li><p>暂停进程（为了使得一个正在前台运行的程序移动到后台）</p><ul><li><p>进程必须先暂停才能移动到后台</p></li><li><p>执行 <code>Ctrl-z</code></p><p><img src="https://secure2.wostatic.cn/static/pLycJqxzSziWUKyoYEvRnt/image.png?auth_key=1669917071-ooJV4xGeJqcuaxfwWo6kgR-0-77562ad131171d776b7b6cc2f84c7b7d" alt="img"></p></li><li><p>暂停后</p><ol><li><p>可以通过bg命令移动到后台</p><p><img src="https://secure2.wostatic.cn/static/cavrh8QegUHiQkKKNQfueu/image.png?auth_key=1669917071-ahkkMLkd234GPosaSdtTRW-0-62b0484eb3e6feec380675a0aa97ecd5" alt="img"></p></li><li><p>可以通过fg命令恢复前台运行</p></li></ol></li></ul></li><li><p>终止进程</p><ul><li><p>kill 命令不是真的“杀死”程序，而是<strong>给程序发送信号</strong>。（信号是<strong>操作系统与程序之间进行通信</strong>时所采用的几种方式中的一种）</p></li><li><p>kill [-signal] PID</p><ul><li><p>-signal</p><ul><li><p>如果在命令行中没有指定信号，那么默认情况下，发送 TERM（Terminate，终止）信号</p></li><li><p>完整 -signal 含义</p><p><img src="https://secure2.wostatic.cn/static/67PaekvTYxY1eWTKDZYqy2/image.png?auth_key=1669917072-9SN6xpPtJKFL2fLZaQ7obm-0-5a6058f650b86be7a4e102ae4a4131b4" alt="img"></p><p><img src="https://secure2.wostatic.cn/static/6s2vcV8iBtE36gBMbhMe3y/image.png?auth_key=1669917072-txbBvTwEFrLbLsPgvsoXmg-0-efa4c2efd6f82ae647c3f31bec8efac6" alt="img"></p></li></ul></li><li><p>信号（signal）既可以用号码，也可以用名字来指定，可以在名字前面加上字母“SIG”的名字。</p><ul><li>意思就是可以用 -15 ，也可以用 -TERM，也可以用 -SIGTERM</li></ul></li><li><p>用 jobspecs （一个百分号和任务序号，比如%1）来代替 PID</p></li></ul><p><img src="https://secure2.wostatic.cn/static/hnd1gUkf2p4TVGuWq1P4u6/image.png?auth_key=1669917072-2wyFmRugYDDxFsWgdZrakt-0-874c7b87124753c64a1ff54f6836f97a" alt="img"></p><p><img src="https://secure2.wostatic.cn/static/d4jkWr6f3wBgnvCzWWCMdG/image.png?auth_key=1669917072-mNnjiUpC7zGJ3PRHzD8B81-0-412f624a261c11c6b6b4d03105a7c166" alt="img"></p></li></ul></li><li><p>如果要<strong>在关闭连接终端后还能执行</strong>，就必须在命令前面再加上一个<code>nohup</code></p><ul><li><code>nohup xlogo &amp;</code></li></ul></li><li><p>实际应用</p><ul><li><p>一般后台运行会<strong>配合把输出重定向到日志文件</strong></p></li><li><p>tail也是很有用的技巧，不然放后台运行了就不知道目前命令的执行情况了</p><ul><li>加上 -f之后可以实时地浏览文件，tail 命令会继续监测这个文件，当新的内容添加到文件后，它们会立即出现在屏幕上。这会一直继续下去直到你输入 Ctrl-c。</li></ul></li><li><p>例子</p><p><img src="https://secure2.wostatic.cn/static/tnK9ss5m88sLYyypf8kwV9/image.png?auth_key=1669917072-vNrXMR7o666E5U9ZFqHvjS-0-5c7b536c8b6dd8eaff8a93391a75b167" alt="img"></p></li></ul></li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>1</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hello World</title>
     <link href="/2022/12/02/hello-world/"/>
     <url>/2022/12/02/hello-world/</url>
